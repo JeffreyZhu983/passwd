@@ -1,0 +1,3 @@
+  <view class="bg" style="opacity:{{0.75}}">
+    <image class="bg-image" mode="aspectFill" src='{{background}}'></image>
+  </view>

@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/password/password",
+    "pages/keys/keys",
+    "pages/reset/reset",
+    "pages/components/about/about",
+    "pages/components/background/background",
+    "pages/privatekey/privatekey"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "密码本",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
+  },
+  "sitemapLocation": "sitemap.json"
+}

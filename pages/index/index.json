@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "about": "/pages/components/about/about",
+    "background": "/pages/components/background/background"
+  }
+}

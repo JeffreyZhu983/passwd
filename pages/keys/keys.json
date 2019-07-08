@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "background": "/pages/components/background/background"
+  }
+}

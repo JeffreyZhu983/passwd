@@ -1,0 +1,84 @@
+<background background="{{background}}"></background>
+<about wx:if="{{PageCur=='about'}}" switchToLocalText="{{switchToLocalText}}"></about>
+<home wx:if="{{PageCur=='passwd-note'}}">
+  <view class="container">
+    <view class="userinfo">
+      <button class="userinfo-avatar-unauth lg font-24 no-border" plain="true" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+        <image src="/images/unlock.png"></image>
+      </button>
+      <block wx:else>
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <text class="userinfo-nickname white">{{userInfo.nickName}}</text>
+      </block>
+    </view>
+    <scroll-view scroll-y="{{modalName==null}}" class="page {{modalName!=null?'show':''}}" wx:if="{{showLists}}" style="opacity:{{0.85}}">
+      <view class="cu-list grid col-{{iconCls}}">
+        <view class="cu-item" wx:for="{{iconList}}" wx:key="{{item.method}}" bindtap='clickItem' data-id="{{item.method}}">
+          <view class="cuIcon-{{item.icon}} text-{{item.color}}" data-id="{{item.method}}">
+            <view class="cu-tag badge" wx:if="{{item.badge!=0}}">
+              <block wx:if="{{item.badge!=1}}">{{item.badge>99?"99+":item.badge}}</block>
+            </view>
+          </view>
+          <text data-id="{{item.method}}">{{item.name}}</text>
+        </view>
+      </view>
+      <view class="cu-bar bg-white solid-bottom margin-top">
+        <view class="action">
+          已保存密码
+        </view>
+      </view>
+      <view class="cu-list menu-avatar">
+        <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{lists}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}">
+          <view class="cu-avatar lg round small-font {{colors[(index+1%colors.length)]}}" data-id="{{item.id}}" bindtap='editPwd'>{{item.name}}</view>
+          <view class="content">
+            <view class="text-grey">账户 - {{item.account}}</view>
+            <view class="text-gray text-sm text-cut">
+              <text class="cuIcon-infofill text-red" bindtap='copyPwd' data-val="{{item.password}}">查看密码</text> - {{item.password}}</view>
+          </view>
+          <view class="action">
+            <view class="text-grey text-xs">{{item.create_time}}</view>
+          </view>
+          <view class="move">
+            <view class="bg-grey" data-id="{{item.id}}" data-name="{{item.name}}" bindtap='editPwd'>编辑</view>
+            <view class="bg-red" data-id="{{item.id}}" data-name="{{item.name}}" bindtap='removePwd'>删除</view>
+          </view>
+        </view>
+
+        <view class="cu-load bg-white {{!isLoad?'loading':'over'}} {{hiddenLoading?'hidden':'show'}}"></view>
+      </view>
+      <view class='padding middle-opt white'>操作指南：左滑编辑或删除数据</view>
+    </scroll-view>
+    <view class="usermotto" class="{{hiddenStatus?'hidden':'show'}}">
+      <text class="user-motto font-18 white">{{motto}}</text>
+    </view>
+  </view>
+  <view class="theme">
+    <view class="cu-bar bg-white">
+      <view class="action">
+        <text class="cuIcon-title text-pink"></text> 点击图片设置成背景
+      </view>
+    </view>
+    <swiper class="screen-swiper {{DotStyle?'square-dot':'round-dot'}}" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+      <swiper-item wx:for="{{swiperList}}" wx:key data-src="{{item.url}}" bindtap='setToBackground'>
+        <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
+        <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video>
+      </swiper-item>
+    </swiper>
+  </view>
+  <view class='padding tab-bottom bg-gray align-center text-center'>已经到底了</view>
+</home>
+
+<view class="cu-bar tabbar bg-white shadow foot">
+  <view class="action" bindtap="NavChange" data-cur="passwd-note">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/tabbar/component{{PageCur=='passwd-note'?'_cur':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='passwd-note'?'text-green':'text-gray'}}">我的密码</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="about">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/tabbar/about{{PageCur=='about'?'_cur':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='about'?'text-green':'text-gray'}}">关于</view>
+  </view>
+</view>

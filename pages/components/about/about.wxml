@@ -1,0 +1,34 @@
+<scroll-view scroll-y class="scrollPage padding-tabbar">
+  <view class="UCenter-bg">
+    <image src="/images/logo.png" class="png" mode="widthFix"></image>
+    <view class="text-xl">密码本
+      <text class="text-df">v1.0</text>
+    </view>
+    <view class="margin-top-sm">
+      <text>By:朱金辉</text>
+    </view>
+    
+
+  <view class="align-center margin-top">
+    <button class="cu-btn bg-red round justify-middle" bindtap='showQrcode'>赞赏支持</button>
+  </view>
+  <view class="align-center margin-top">
+    <button class="cu-btn bg-yellow round justify-middle" bindtap='switchToLocal'>{{switchToLocalText}}</button>
+  </view>
+
+  <view class="padding flex flex-wrap justify-between align-center margin-top">
+    <button class="cu-btn bg-red round justify-middle" bindtap='clearData'>清空数据重新登录</button>
+  </view>
+
+  </view>
+  <view class="cu-tabbar-height" style="opacity:{{0.85}}">
+    <view class='margin-xl bg-white padding-xl radius shadow-lg'>
+      <view class='text-center margin-bottom text-lg  text-grey'>关于密码本</view>
+      <view class='text-content'>
+        <view>Hi！大家好~欢迎使用密码本！</view>
+        <view class='margin-top-sm'> 该项目的背景是由于不久前邮箱密码被盗,被小偷将我的一个短域名转走，从此认识到密码的重要性，由于平时的密码设置为了方便记忆会将密码设置得短，密码强度不高，很容易被破解，设置过于复杂又不方便记忆，所以开发密码本来管理自己的密码，您可以通过它生成复杂的随机密码，也可以保存您自定义的密码。</view>
+        <view class='margin-top-sm'>密码本的密码都是通过OpenSSL 256 位非对称加密，所以请您生成公私钥后，一定要保存好自己的私钥，防止私钥丢失导致密码泄露，如果您忘记了私钥，密码将会全部丢失。</view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

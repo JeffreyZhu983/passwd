@@ -1,0 +1,50 @@
+/**index.wxss**/
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+.userinfo-avatar-unauth{
+  width: 158rpx;
+  height: 158rpx;
+  margin: 20rpx;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+
+.userinfo-avatar-unauth image {
+  width: 130rpx;
+  height: 130rpx;
+  max-width: none;
+}
+
+
+.white {
+  color: #fff;
+}
+.middle-opt{
+  padding-top:55rpx;
+}
+
+.gray {
+  color: gray;
+}
+
+.theme {
+  background: #fff;
+}
