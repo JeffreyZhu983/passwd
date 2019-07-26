@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    title:"重置私钥",
     publicKey: "",
     privateKey: "",
     opt: "",
@@ -15,7 +16,6 @@ Page({
   },
   textareaAInput : function(e){
     var name = e.target.dataset.id;
-    app.log(name, e.detail.value);
     var data = {};
     data[name] = e.detail.value;
     this.setData(data);
@@ -75,7 +75,6 @@ Page({
         app.warning(res.msg || "更新失败");
         return;
       }
-      app.log('sslKeySaveSync', res);
       this.data.publicKey = res.data.publicKey;
       this.data.privateKey = res.data.privateKey;
       this.setData({
@@ -88,7 +87,6 @@ Page({
       //更新serverInfo中用户的公私钥
       var serverInfo = wx.getStorageSync(appConfig.storeKeys.serverInfo);
       serverInfo.sslKeys = { 'publicKey': this.data.publicKey, 'privateKey': this.data.privateKey };
-      app.log("更新 serverInfo", serverInfo);
       wx.setStorageSync(appConfig.storeKeys.serverInfo, serverInfo);
       app.globalData.isReloadLists = true;
       

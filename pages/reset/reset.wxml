@@ -1,3 +1,7 @@
+<cu-custom isBack="true">
+    <view class="nav-content" slot="backText">返回</view>
+    <view class="nav-content" slot="content">{{title}}</view>
+</cu-custom>
 <background background="{{background}}"></background>
 <view class="font-18 white" style="opacity:{{0.85}}">
 <view class="cu-bar bg-white solid-bottom margin-top">

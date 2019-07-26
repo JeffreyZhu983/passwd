@@ -1,4 +1,8 @@
 <background background="{{background}}"></background>
+<cu-custom bgColor="#39b54a" isBack="true">
+    <view class="nav_content" slot="backText">返回</view>
+    <view class="nav_content" slot="content">{{title}}</view>
+</cu-custom>
 <view class="font-18" style="opacity:{{0.85}}">
 <view class="cu-bar bg-white solid-bottom margin-top">
   <view class="action">

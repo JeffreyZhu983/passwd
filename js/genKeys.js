@@ -16,7 +16,6 @@ var genKeys = function(that){
     dataType : 'json',
     success : function(res){
       wx.hideLoading();
-        app.log(res)
         if(res.data.code > 0) {
           wx.showToast({
             title: res.data.msg || "获取公私钥失败",

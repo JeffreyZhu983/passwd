@@ -21,7 +21,6 @@ var saveKeys = function (that, forceUpdate) {
     method : 'POST',
     dataType: 'json',
     success: function (res) {
-      app.log(res)
       if (res.data.code == 5) {
         wx.showModal({
           title: '提示',
@@ -30,7 +29,6 @@ var saveKeys = function (that, forceUpdate) {
           confirmText: "更新",
           success: function (item) {
             if (item.confirm) {
-              app.log("更新", res.data.forceUpdate);
               saveKeys(that, res.data.forceUpdate);
             } else {
             }

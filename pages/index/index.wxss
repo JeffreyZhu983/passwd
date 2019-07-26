@@ -16,7 +16,7 @@
 .userinfo-avatar-unauth{
   width: 158rpx;
   height: 158rpx;
-  margin: 20rpx;
+  padding: 20rpx;
 }
 
 .userinfo-nickname {

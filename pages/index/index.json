@@ -1,6 +1,8 @@
 {
   "usingComponents": {
     "about": "/pages/components/about/about",
-    "background": "/pages/components/background/background"
-  }
+    "background": "/pages/components/background/background",
+    "album" : "/pages/components/album/album"
+  },
+  "enablePullDownRefresh": true
 }

@@ -21,7 +21,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.7.0",
+	"libVersion": "2.7.7",
 	"appid": "wx3caf868dab62f709",
 	"projectname": "passwd",
 	"cloudfunctionTemplateRoot": "",

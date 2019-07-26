@@ -9,13 +9,13 @@ Page({
    * 页面的初始数据
    */
   data: {
+    title:"验证私钥",
     publicKey : "",
     privateKey : "",
     background : "",
   },
   inputAction: function (e) {
     var name = e.target.dataset.id;
-    app.log(name, e.detail.value);
     var data = {};
     data[name] = e.detail.value;
     this.setData(data);
@@ -40,7 +40,6 @@ Page({
         res.msg = "校验失败，您的公私钥不匹配，请查证后再试！";
       }
     }catch(e) {
-      app.log(e);
       res.code = 400;
       res.msg = e;
     }
@@ -60,7 +59,6 @@ Page({
       title: '验证私钥'
     });
     app.verifyKeysSuccessSync = res => {
-      app.log(res)
       if(!res || (res.code && res.code > 0)) {
         app.warning(res.msg || "验证失败，请检查您的私钥～");
         return;
@@ -73,7 +71,6 @@ Page({
       //更新serverInfo中用户的公私钥
       var serverInfo = wx.getStorageSync(appConfig.storeKeys.serverInfo);
       serverInfo.sslKeys = { 'publicKey': this.data.publicKey, 'privateKey': this.data.privateKey };
-      app.log("更新 serverInfo", serverInfo);
       wx.setStorageSync(appConfig.storeKeys.serverInfo, serverInfo);
       wx.showModal({
         title: '温馨提示',

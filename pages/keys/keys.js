@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    title:"创建公私钥",
     publicKey : "",
     privateKey : "",
     background: "",
@@ -54,7 +55,6 @@ Page({
       }
     }
     app.sslKeySaveSync = res => {
-      app.log('sslKeySaveSync', res);
       //保存公私钥到本地
       wx.setStorageSync(appConfig.storeKeys.sslKeys, { 'publicKey': this.data.publicKey, 'privateKey': this.data.privateKey });
       //更新serverInfo中用户的公私钥

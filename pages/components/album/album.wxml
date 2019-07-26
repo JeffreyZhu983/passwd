@@ -1,0 +1,51 @@
+<!--pages/components/wallpaper/wallpaper.wxml-->
+<scroll-view scroll-y class="scrollPage padding-tabbar">
+
+  <view style="opacity:{{0.85}}">
+    <form>
+      <view class="bg-white margin-top">
+        <view class="cu-bar bg-white">
+          <view class="action">
+            图片上传
+          </view>
+          <view class="action">
+            {{imgList.length}}/8
+          </view>
+        </view>
+      </view>
+      <view class="cu-form-group bg-white">
+        <view class="grid col-4 grid-square flex-sub">
+          <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+            <image src='{{imgList[index]}}' mode='aspectFill'></image>
+            <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+              <text class="cuIcon-close"></text>
+            </view>
+          </view>
+          <view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<8}}">
+            <text class="cuIcon-cameraadd"></text>
+          </view>
+        </view>
+      </view>
+      <view class="margin-top padding">
+        <button class="cu-btn block bg-blue margin-tb-sm lg" catchtap="submitForm">上传</button>
+      </view>
+    </form>
+
+
+    <view class="cu-timeline">
+      <view class="cu-time">照片列表</view>
+      <view class="cu-item cur text-{{bgColor[(index%bgColor.length)]}}" wx:for="{{albumList.lists}}" wx:key>
+        <view class="content bg-{{bgColor[(index%bgColor.length)]}} shadow-blur">
+          <text>{{item.create_time}}</text>
+          <image data-source="{{item.source}}" data-src='{{item.thumb}}' data-index="{{index}}" src='{{item.thumb}}' mode='aspectFill' ontap="showPic"></image>
+          <text class="album-remove cuIcon-delete lg text-gray" data-id="{{item.id}}" data-uid="{{item.uid}}" data-type="{{item.type == 'folder' ? 'folder' : 'file' }}" catchtap="remove"></text>
+        </view>
+      </view>
+
+      <view class="cu-item cur">
+        <view class="cu-load bg-white {{!isLoad?'loading':'over'}} {{hiddenLoading?'hidden':'show'}}"></view>
+      </view>
+
+    </view>
+  </view>
+</scroll-view>

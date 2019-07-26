@@ -29,7 +29,6 @@ var info = function (id) {
     method : "GET",
     dataType : "json",
     success : function(req){
-      app.log(req)
       app.infoSuccessSync(req.data)
     },
     fail: function (req) {

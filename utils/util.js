@@ -1,6 +1,7 @@
 const app =  getApp();
 const appConfig = require("../config")
 const Encrypt = require("../js/jsencrypt")
+const sha1 = require("../js/sha1");
 
 function http_build_query(formdata, numeric_prefix, arg_separator) {
   var value, key, tmp = [],
@@ -63,7 +64,13 @@ function urldecode(str) {
     return '';
   }
 }
-
+var ksort = function(arr) {
+  const ordered = {};
+  Object.keys(arr).sort().forEach(function (key) {
+    ordered[key] = arr[key];
+  });
+  return ordered;
+}
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -106,9 +113,16 @@ var sslDecrypt = function (str, privateKey) {
   privateKey = privateKey.replace("-----END RSA PRIVATE KEY-----", "-----END PRIVATE KEY-----");
   return this.decrypt(str, privateKey);
 }
+var hexSha1 = function(str){
+  return sha1.sha1(str);
+}
+var sslSign = function (text, privateKey) {
+  var crypt = new Encrypt.JSEncrypt({ default_key_size: 1024 });
+  crypt.setPrivateKey(privateKey);
+  return crypt.sign(text, hexSha1, '');
+}
 //验证公私钥
 var verifySslKey = function(publicKey, privateKey){
-  app.log(publicKey, privateKey);
   var verifyStr = "It's ok";
   var encrypt = this.encrypt(verifyStr, publicKey);
   var decrypt = this.decrypt(encrypt, privateKey);
@@ -153,6 +167,8 @@ var getUrl = function(api, params) {
   {
     params = {};
   }
+  params.fromApp = "weixin";
+  params.appId = wx.getAccountInfoSync().miniProgram.appId;
   if (!appConfig.api[api]) {
     return "";
   }
@@ -173,8 +189,7 @@ var getSwitchToLocalStatus = function() {
 
 var syncServerInfo = function() { //同步更新serverInfo和sslKey
   var sslKeys = wx.getStorageSync(appConfig.storeKeys.sslKeys)
-  var serverInfo = wx.getStorageSync(appConfig.storeKeys.serverInfo)
-  app.log("syncServerInfo", sslKeys, serverInfo);
+  var serverInfo = wx.getStorageSync(appConfig.storeKeys.serverInfo);
   if (!serverInfo) return false;
   if (sslKeys && sslKeys['publicKey'] && sslKeys['privateKey'] &&
     serverInfo && serverInfo['sslKeys'] && (sslKeys['publicKey'] == serverInfo['sslKeys']['publicKey'])
@@ -277,19 +292,32 @@ var setBackground =  function(url) {
 }
 var getBackground = function() {
   var background = wx.getStorageSync(appConfig.storeKeys.background);
-  app.log(background);
   if (!background) return app.globalData.background;
   return background;
 }
+var promisify =  api => {
+  return (options, ...params) => {
+    return new Promise((resolve, reject) => {
+      const extras = {
+        success: resolve,
+        fail: reject
+      }
+      api({ ...options, ...extras }, ...params)
+    })
+  }
+}
 module.exports = {
   formatTime: formatTime,
+  hexSha1: hexSha1,
   sslEncrypt: encrypt,
   sslDecrypt: decrypt,
+  sslSign: sslSign,
   encrypt: encrypt,
   decrypt: decrypt,
   genSslKey: genSslKey,
   verifySslKey: verifySslKey,
   getUrl: getUrl,
+  httpBuild: http_build_query,
   getSwitchToLocalStatus: getSwitchToLocalStatus,
   showCreateTime: showCreateTime,
   syncServerInfo: syncServerInfo,
@@ -302,4 +330,6 @@ module.exports = {
   getOpenId: getOpenId,
   setBackground: setBackground,
   getBackground: getBackground,
+  promisify: promisify,
+  ksort: ksort,
 }

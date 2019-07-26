@@ -1,5 +1,9 @@
+<cu-custom>
+    <view class="nav-content" slot="content">{{title}}</view>
+</cu-custom>
 <background background="{{background}}"></background>
 <about wx:if="{{PageCur=='about'}}" switchToLocalText="{{switchToLocalText}}"></about>
+<album wx:if="{{PageCur == 'album'}}" imgList="{{imgList}}" id="album"></album>
 <home wx:if="{{PageCur=='passwd-note'}}">
   <view class="container">
     <view class="userinfo">
@@ -74,6 +78,12 @@
       <image src="/images/tabbar/component{{PageCur=='passwd-note'?'_cur':''}}.png"></image>
     </view>
     <view class="{{PageCur=='passwd-note'?'text-green':'text-gray'}}">我的密码</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="album">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/tabbar/basics{{PageCur=='album'?'_cur':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='album'?'text-green':'text-gray'}}">相册</view>
   </view>
   <view class="action" bindtap="NavChange" data-cur="about">
     <view class='cuIcon-cu-image'>

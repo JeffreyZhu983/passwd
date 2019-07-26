@@ -3,13 +3,15 @@
 @import "colorui/icon.wxss";
 @import "pages/components/background/background.wxss";
 
+.nav-content{color:#fff;}
+.cuIcon-back{color: #fff;}
 .container {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 20rpx 0;
+  padding: 20rpx 0rpx;
   box-sizing: border-box;
 }
 .hidden {
@@ -151,3 +153,4 @@
  button[plain]{ border:0 }
  .tab-bottom{padding:43rpx;}
  .text-center{text-align: center;}
+ .cu-form-group>text.bigTriangle{font-size:66rpx;}

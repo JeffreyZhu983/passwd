@@ -11,6 +11,7 @@ const decrypt = require("js/decrypt")
 const verifyKeys = require("js/verifyKeys")
 const remove = require("js/remove")
 const saveClientPublicKey = require('js/saveClientPublicKey')
+const album = require("js/album")
 
 var common = {
   login: function(_this) {
@@ -46,6 +47,12 @@ var common = {
   saveClientPublicKey: function(_this, publicKey, privateKey){
     saveClientPublicKey(_this, publicKey, privateKey);
   },
+  album: function (_this, lastId, page, pageSize) {
+    album.lists(_this, lastId, page, pageSize);
+  },
+  albumRemove: function (_this, uid, id, type) {
+    album.remove(_this, uid, id, type);
+  }
 }
 
 module.exports = common

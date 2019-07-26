@@ -18,7 +18,10 @@ var config = {
     "download" : `${host}/api/admin/password/download.json`,
     "sync" : `${host}/api/admin/password/sync.json`,
     "savePublicKeyClient": `${host}/api/admin/password/savePublicKeyClient.json`,
-    "batchUpdate": `${host}/api/admin/password/batchUpdate.json`
+    "batchUpdate": `${host}/api/admin/password/batchUpdate.json`,
+    "album": `${host}/api/virtual/album.json`,
+    "albumUpload": `${host}/api/virtual/upload.json`,
+    'albumRemove': `${host}/api/virtual/remove.json`,
   },
   "storeKeys": {
     "sslKeys": "sslKeys",

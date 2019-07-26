@@ -1,0 +1,10 @@
+/* pages/components/wallpaper/wallpaper.wxss */
+@import "/colorui/main.wxss";
+@import "/colorui/icon.wxss";
+.cu-form-group .title {
+  min-width: calc(4em + 30rpx);
+}
+.padding-tabbar{
+  padding-bottom: 80rpx;
+}
+.album-remove{background: #fff;padding: 2px;border-radius:50%;float:right;position:absolute;top:5px; right:5px;width:40rpx;height:40rpx;opacity:0.85;text-align: center;}

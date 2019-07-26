@@ -80,7 +80,6 @@ var login = function (that) {
   //如果有openId 和 sessionId 就直接登录，不走获取微信信息
   wx.getSetting({
     success(res) {
-      app.log("wx.getSetting", res);
       if (res.authSetting['scope.userInfo']) {
         if (!app.globalData.res) {
           app.warning("用户信息获取失败");

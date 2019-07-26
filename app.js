@@ -25,7 +25,16 @@ App({
       console.log("res.isConnected", res.isConnected)
       console.log("res.networkType", res.networkType)
     })*/
-    
+
+    wx.getSystemInfo({
+      success: e => {
+        this.globalData.StatusBar = e.statusBarHeight;
+        let custom = wx.getMenuButtonBoundingClientRect();
+        this.globalData.Custom = custom;
+        this.globalData.CustomBar = custom.bottom + custom.top - e.statusBarHeight;
+      }
+    })
+
     // 获取用户信息
     this.login();
   },
@@ -72,7 +81,7 @@ App({
     info : null,
     res : null,
     background: "/images/theme/10001.jpg",
-    networkType : "wifi",
+    networkType : "wifi"
   },
   toast : function(str)  {
     wx.showToast({
@@ -93,13 +102,8 @@ App({
     return obj.stack;
   },
   log : function() {
-    /*
-    if(appConfig.host.indexOf("http://localhost/") == -1) {
-      return;
-    }*/
-    //console.log.apply(console, arguments)
-    var stack = this.getStackTrace() || ""
-    var matchResult = stack.split("at");
+    var stack = this.getStackTrace() || "";
+    var matchResult = stack.split("at ");
     
     var line = matchResult[5] || ""
     for (var i in arguments) {

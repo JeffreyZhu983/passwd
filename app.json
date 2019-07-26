@@ -5,15 +5,19 @@
     "pages/keys/keys",
     "pages/reset/reset",
     "pages/components/about/about",
+    "pages/components/album/album",
     "pages/components/background/background",
     "pages/privatekey/privatekey"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "密码本",
-    "navigationBarTextStyle": "black",
-    "enablePullDownRefresh": true
+    "navigationBarBackgroundColor": "#39b54a",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
   },
   "sitemapLocation": "sitemap.json"
 }

@@ -26,7 +26,6 @@ Page({
   inputAction: function(e) {
     var name = e.target.dataset.id;
     var data = {};
-    app.log(name);
     if (name == 'passwordLength') {
       if(e.detail.value < 6) {
         data[name] = 6;
@@ -42,7 +41,6 @@ Page({
   },
   randPassword: function() {
     var passwd = rand.randCombin("alpha,smallLetter,bigLetter,specialChars", this.data.passwordLength, true);
-    app.log('password', passwd);
     this.setData({
       password: passwd
     });
@@ -77,7 +75,6 @@ Page({
     submitData.note = this.data.note;
     submitData.pubKey = this.data.pubKey;
     submitData.isEdit = this.data.isEdit;
-    app.log("submitData", submitData);
     common.savePwd(this, submitData);
   },
   /**
@@ -90,9 +87,11 @@ Page({
     wx.setNavigationBarTitle({
       title: '创建我的密码'
     });
+    this.setData({
+      "title" : '创建我的密码'
+    });
     var serverInfo = wx.getStorageSync("serverInfo");
     app.sslKeyDecryptSync = res => {
-      app.log(res)
       this.setData(app.globalData.info, utils.getPrivateKey());
       if (!res || (res.code && res.code > 0)) {
         app.warning(res.msg || "解密失败，请确认您的私钥是否正确～");
@@ -150,9 +149,11 @@ Page({
         title: '编辑我的密码',
       });
       this.setData({
+        "title": '编辑我的密码'
+      });
+      this.setData({
         isEdit : true
       });
-      app.log("app.globalData.info", typeof app.globalData.info);
     }
     this.setData({
       'pubKey': serverInfo.sslKeys.publicKey

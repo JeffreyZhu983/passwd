@@ -180,7 +180,6 @@ var download = function(page, pageSize) {
   }
   //再检查本地是否有新增的数据
   var newItem = wx.getStorageSync(appConfig.storeKeys.newItem) || [];
-  app.log(newItem);
   if (newItem.length > 0) {
     wx.request({
       url: utils.getUrl('batchUpdate'),
@@ -191,7 +190,6 @@ var download = function(page, pageSize) {
       dataType: 'json',
       method: 'post',
       success: function(res) {
-        app.log(res);
         if (res.data) {
           if (res.data.data) {
             for (var i in res.data.data) {

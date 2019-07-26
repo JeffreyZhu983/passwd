@@ -8,6 +8,7 @@ const cache = require('../../js/cache');
 
 Page({
   data: {
+    title : "密码本",
     motto: '请点击上边图标以授权此应用',
     userInfo: {},
     hiddenStatus: false,
@@ -56,12 +57,32 @@ Page({
       type: 'image',
         url: '/images/theme/10007.jpg'
     }],
+    imgList:[],
+    albumList:{
+      "pages" : {
+        "totalPage" : 0,
+        "currentPage" : 0,
+      },
+      "lists" : []
+    }
   },
   NavChange(e) {
+    var _this = this;
+
     this.setData({
       PageCur: e.currentTarget.dataset.cur,
       switchToLocalText: utils.getSwitchToLocalStatus() ? "切换到线上使用" : "切换到本地使用"
-    })
+    });
+    if (e.currentTarget.dataset.cur == 'album') {
+      this.setData({
+        'title' : '我的相册'
+      });
+      this.album = this.selectComponent("#album");
+    }else{
+      this.setData({
+        'title' : '密码本'
+      });
+    }
   },
   showModal(e) {
     this.setData({
@@ -133,12 +154,35 @@ Page({
       ListTouchDirection: null
     })
   },
-  onPullDownRefresh:function(){
+  onPullDownRefresh: function () {
+    if (this.data.PageCur == 'album') {
+      app.log('album onPullDownRefresh');
+      this.album.onPullDownRefresh();
+      return;
+    }
+    if (this.data.PageCur != 'passwd-note') {
+      return;
+    }
+    this.setData({
+      isLoad: false,
+      hiddenLoading: false,
+    });
     wx.showNavigationBarLoading();
     common.lists(this, 1, appConfig.pageSize);
     wx.stopPullDownRefresh();
   },
-  onReachBottom: function(){
+  onReachBottom: function () {
+    if (this.data.PageCur == 'album') {
+      app.log('album onReachBottom');
+      this.album.onReachBottom();
+      return;
+    }
+    if (this.data.PageCur != 'passwd-note') {
+      this.setData({
+        "onReachBottom": true,
+      });
+      return;
+    }
     if(!this.data.pages) {
         return;
     }
@@ -161,12 +205,10 @@ Page({
   //事件处理函数
   bindViewTap: function() {
     if (!utils.hasLogined()) {
-      app.log("bindViewTap reLogin");
       this.reLogin();
     }
   },
   clickItem: function (e) {
-    app.log("utils.hasLogined", utils.hasLogined());
     var _this = this;
     var method = e.target.dataset.id;
     switch (method) {
@@ -234,7 +276,6 @@ Page({
         });
         break;
       case 'save-to-local':
-        app.log('save-to-local');
         cache.download(1, 10000);
       break;
     }
@@ -263,7 +304,6 @@ Page({
   editPwd: function(e) {
     var _this = this;
     app.infoSuccessSync = res => {
-      app.log(res)
       if (!res || (res.code && res.code > 0)) {
         app.toast(res.msg || "获取失败");
         return;
@@ -314,9 +354,7 @@ Page({
   removePwd: function(e) {
     var id = e.target.dataset.id;
     var name = e.target.dataset.name;
-    app.log(id, name)
     app.removeSuccessSync = res => {
-      app.log("app.removeSuccessSync");
       if (!res || (res.code && res.code > 0)) {
         app.warning(res.msg || "删除失败");
         return;
@@ -382,7 +420,6 @@ Page({
     }
 
     app.sslKeyDecryptSync = res => {
-      app.log(res);
       if (!res ||  (res.code && res.code > 0)) {
         app.warning(res.msg || "解密失败");
         return;
@@ -457,7 +494,6 @@ Page({
         title: '温馨提示',
         content: '请输入您的私钥以解密您的密码',
         success: function(item) {
-          app.log(item);
           if (item.confirm) {
             wx.navigateTo({
               url: '/pages/privatekey/privatekey',
@@ -539,13 +575,10 @@ Page({
     }
     //保存数据到本地回调
     app.storeToLocal = res => {
-      app.log(res);
     }
 
     app.serInfoReady = res => {
       var _this = this;
-      app.log("app.serInfoReady(serverInfo)", res);
-      app.log("app.serInfoReady(serverInfo).code", res.code);
       if (!res || res.code > 0 || !res.data || !res.data.sslKeys) {
         if (res.code == 10005) {
           //删除本地登录信息，重新登录
@@ -556,7 +589,6 @@ Page({
           content: res.msg || "登录失败，请重试 ~",
           showCancel: false,
           success: function(item) {
-            app.log(item);
             _this.reLogin();
           }
         })
@@ -588,10 +620,8 @@ Page({
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
-        app.log("app.userInfoReadyCallback");
         app.globalData.res = res
         common.login(this)
-        app.log(1, res.userInfo)
         this.setData({
           motto: "正在登录，请稍后...",
           userInfo: res.userInfo,

@@ -59,7 +59,6 @@ var savePwd = function(that, data){
     method : "POST",
     dataType : "json",
     success : function(res) {
-      app.log(res)
       app.storeSuccess(res.data);
     },
     fail : function(res) {
