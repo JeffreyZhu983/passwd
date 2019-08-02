@@ -22,6 +22,7 @@ Page({
     background: "",
     isEdit : false,
     passwordLength : 12,
+    randCombin: "alpha,smallLetter,bigLetter,specialChars",
   },
   inputAction: function(e) {
     var name = e.target.dataset.id;
@@ -36,11 +37,22 @@ Page({
     data[name] = e.detail.value;
     this.setData(data);
   },
+  checkboxAction:function(e){
+    var arr = [];
+    e.detail.value.forEach(current => {
+      arr.push(current);
+    });
+
+    this.setData({
+      randCombin : arr.join(",")
+    });
+    this.randPassword();
+  },
   getBack: function() {
     wx.navigateBack();
   },
   randPassword: function() {
-    var passwd = rand.randCombin("alpha,smallLetter,bigLetter,specialChars", this.data.passwordLength, true);
+    var passwd = rand.randCombin(this.data.randCombin, this.data.passwordLength, true);
     this.setData({
       password: passwd
     });
@@ -127,7 +139,6 @@ Page({
         }
       })
     }
-    app.log("serverInfo", serverInfo)
     if (app.globalData.info != null && typeof app.globalData.info == 'object') {
       //去掉服务端解密过程
       //common.decrypt(app.globalData.info.password, serverInfo.sslKeys.privateKey);

@@ -2,30 +2,6 @@
 const appConfig = require('config')
 App({
   onLaunch: function () {
-    // 展示本地存储能力
-    // 登录
-    /*
-    wx.login({
-      success: res => {
-        this.log("wx.login", res);
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      } 
-    })
-    var _this = this;
-    wx.getNetworkType({
-      success(res) {
-        _this.globalData.networkType = res.networkType
-        console.log(_this.globalData.networkType);
-      },
-      complete : function(res){
-        console.log("complete", res);
-      }
-    })
-    wx.onNetworkStatusChange(function (res) {
-      console.log("res.isConnected", res.isConnected)
-      console.log("res.networkType", res.networkType)
-    })*/
-
     wx.getSystemInfo({
       success: e => {
         this.globalData.StatusBar = e.statusBarHeight;
@@ -34,7 +10,6 @@ App({
         this.globalData.CustomBar = custom.bottom + custom.top - e.statusBarHeight;
       }
     })
-
     // 获取用户信息
     this.login();
   },

@@ -156,7 +156,6 @@ Page({
   },
   onPullDownRefresh: function () {
     if (this.data.PageCur == 'album') {
-      app.log('album onPullDownRefresh');
       this.album.onPullDownRefresh();
       return;
     }
@@ -173,7 +172,6 @@ Page({
   },
   onReachBottom: function () {
     if (this.data.PageCur == 'album') {
-      app.log('album onReachBottom');
       this.album.onReachBottom();
       return;
     }

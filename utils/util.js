@@ -137,11 +137,6 @@ var genSslKey = function(){
   crypt.getKey();
   var publicKey = crypt.getPublicKey();
   var privateKey = crypt.getPrivateKey();
-  // 去除-----*** RSA **** KEY----- 和空格换行
-  //publicKey = (publicKey.split('-----'))[2];
-  //publicKey = publicKey.replace(/\n/g, "").replace(/\r/g, "").replace(/\t/g, "").replace(/\s*/g, "");
-  //privateKey = (privateKey.split('-----'))[2];
-  //privateKey = privateKey.replace(/\n/g, "").replace(/\r/g, "").replace(/\t/g, "").replace(/\s*/g, "");
   return {
     publicKey : publicKey,
     privateKey : privateKey
