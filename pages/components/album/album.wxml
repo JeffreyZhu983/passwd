@@ -15,7 +15,7 @@
       </view>
       <view class="cu-form-group bg-white">
         <view class="grid col-4 grid-square flex-sub">
-          <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+          <view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImage" data-url="{{imgList[index]}}">
             <image src='{{imgList[index]}}' mode='aspectFit'></image>
             <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
               <text class="cuIcon-close"></text>
@@ -34,7 +34,7 @@
 
     <view class="cu-timeline">
       <view class="cu-time">照片列表</view>
-      <view class="cu-item cur text-{{bgColor[(index%bgColor.length)]}}" wx:for="{{albumList.lists}}" wx:key>
+      <view class="cu-item cur text-{{bgColor[(index%bgColor.length)]}}" wx:for="{{albumList.lists}}" wx:key="id">
         <view class="content bg-{{bgColor[(index%bgColor.length)]}} shadow-blur">
           <text>{{item.create_time}}</text>
           <image data-source="{{item.source}}" data-src='{{item.thumb}}' data-index="{{index}}" src='{{item.thumb}}' mode='aspectFill' ontap="showPic"></image>

@@ -17,8 +17,8 @@ var common = {
   login: function(_this) {
     login(_this)
   },
-  lists: function(_this, page, pageSize) {
-    lists.pwd(_this, page, pageSize)
+  lists: function(_this, page, pageSize, keyword) {
+    lists.pwd(_this, page, pageSize, keyword)
   },
   genKeys: function(_this) {
     genKeys(_this);

@@ -28,6 +28,7 @@ Page({
     isLoad: false,
     cardCur: 0,
     DotStyle: "square-dot",
+    keyword:"",
     swiperList: [{
       id: 0,
       type: 'image',
@@ -167,7 +168,7 @@ Page({
       hiddenLoading: false,
     });
     wx.showNavigationBarLoading();
-    common.lists(this, 1, appConfig.pageSize);
+    common.lists(this, 1, appConfig.pageSize, this.data.keyword);
     wx.stopPullDownRefresh();
   },
   onReachBottom: function () {
@@ -189,7 +190,7 @@ Page({
         hiddenLoading: false,
       });
       //加载下一页
-      common.lists(this, parseInt(this.data.pages.currentPage) + 1, appConfig.pageSize);
+      common.lists(this, parseInt(this.data.pages.currentPage) + 1, appConfig.pageSize, this.data.keyword);
     }
   },
   setToBackground: function(e){
@@ -284,7 +285,7 @@ Page({
       this.setData({
         hiddenLoading: false,
       });
-      common.lists(this, 1, appConfig.pageSize);
+      common.lists(this, 1, appConfig.pageSize, this.data.keyword);
       app.globalData.isReloadLists = false;
     }
     if (app.globalData.isReloadIcon) {
@@ -298,6 +299,15 @@ Page({
   },
   reLogin: function() {
     app.login();
+  },
+  inputAction: function(e){
+    var name = e.target.dataset.id;
+    var data = {};
+    data[name] = e.detail.value;
+    this.setData(data);
+  },
+  search: function(e) {
+    common.lists(this, 1, appConfig.pageSize, this.data.keyword)
   },
   editPwd: function(e) {
     var _this = this;
@@ -510,7 +520,7 @@ Page({
       this.setData({
         hiddenLoading: false,
       });
-      common.lists(this, 1, appConfig.pageSize)
+      common.lists(this, 1, appConfig.pageSize, this.data.keyword)
     }
   },
   onLoad: function() {
@@ -568,7 +578,7 @@ Page({
 
       app.toast("同步成功");
       if (utils.getSwitchToLocalStatus) {
-        common.lists(this, 1, appConfig.pageSize);
+        common.lists(this, 1, appConfig.pageSize, this.data.keyword);
       }
     }
     //保存数据到本地回调

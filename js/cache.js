@@ -308,7 +308,7 @@ var download = function(page, pageSize) {
     }
   });
 }
-var getFromLocal = function(page, pageSize) {
+var getFromLocal = function(page, pageSize, keyword) {
   var pages = {
     total: 0,
     currentPage: 1,
@@ -323,6 +323,20 @@ var getFromLocal = function(page, pageSize) {
   data.sort(function(x, y) {
     return parseInt(y['id']) - parseInt(x['id']);
   });
+  //如果传了搜索关键字，就过滤一下数据再输出
+  if(keyword != "") {
+    var tmpArr = new Array();
+    for(var i in data) {
+      var val = data[i];
+      if(val['name'].indexOf(keyword) != -1 ||
+        val['account'].indexOf(keyword) != -1||
+        val['note'].indexOf(keyword) != -1
+      ) {
+        tmpArr.push(data[i])
+      }
+    }
+    data = tmpArr;
+  }
   pages.total = parseInt(data.length);
   pages.totalPage = Math.ceil(pages.total / pages.pageSize);
   pages.currentPage = Math.min(parseInt(page), pages.totalPage);

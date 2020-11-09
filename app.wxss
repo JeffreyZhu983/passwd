@@ -154,3 +154,4 @@
  .tab-bottom{padding:43rpx;}
  .text-center{text-align: center;}
  .cu-form-group>text.bigTriangle{font-size:66rpx;}
+ .cu-avatar.lg{overflow: hidden;}

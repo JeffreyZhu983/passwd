@@ -6,6 +6,9 @@ const appConfig = require("../../../config");
 const wxUploadFile = utils.promisify(wx.uploadFile);
 
 Component({
+  options: {
+    addGlobalClass: true,
+  },
   /**
    * 组件的属性列表
    */

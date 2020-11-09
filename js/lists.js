@@ -3,9 +3,9 @@ const appConfig = require("../config");
 const utils = require("../utils/util");
 const cache = require("cache");
 
-var lists = function(_this, page, pageSize) {
+var lists = function(_this, page, pageSize, keyword) {
   if (utils.getSwitchToLocalStatus()) {
-    var res = cache.getFromLocal(page, pageSize);
+    var res = cache.getFromLocal(page, pageSize, keyword);
     app.listSync(res);
     return;
   }
@@ -16,7 +16,8 @@ var lists = function(_this, page, pageSize) {
   wx.request({
     url: utils.getUrl("lists", {
       page: page,
-      pageSize: pageSize
+      pageSize: pageSize,
+      keyword: keyword
     }),
     header: header,
     dataType: "json",
