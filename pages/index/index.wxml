@@ -32,7 +32,7 @@
           <view class="cu-bar search bg-white">
             <view class="search-form round">
               <text class="cuIcon-search"></text>
-              <input type="text" id="search-kwd" placeholder="请输入关键字"  bindinput="inputAction" data-id="keyword" confirm-type="search"></input>
+              <input type="text" id="search-kwd" placeholder="请输入关键字"  bindinput="inputAction" data-id="keyword" confirm-type="search" bindconfirm='search'></input>
             </view>
             <view class="action">
               <button class="cu-btn bg-green shadow-blur round" bindtap="search">搜索</button>
